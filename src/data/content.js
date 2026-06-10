@@ -1,6 +1,7 @@
 export const aboutData = {
   title: 'Bhargav Patel',
   subtitle: 'Software Engineer',
+  summary: 'Software Engineer with 3+ years of experience designing, developing, and deploying scalable web applications, REST APIs, microservices, and cloud-based systems. Strong hands-on experience with Python, Django, Flask, FastAPI, PostgreSQL, React.js, Docker, Kubernetes, CI/CD, and AWS. Skilled in backend architecture, database optimization, API development, asynchronous processing, and Agile software delivery. Additional experience integrating AI/ML features such as predictive models, LLM-based chatbots, embeddings, and vector search into production-ready software applications.',
   bio: [
     "I'm a backend-focused engineer who gravitates toward the hard parts of the stack — APIs that handle millions of requests, pipelines that never miss a record, and the microservices migrations that happen without downtime.",
     "At Datadog I build platform tooling with FastAPI and React, ship async pipelines with Celery & RabbitMQ, and integrate LLM-powered search. Before that at Chargebee I led payment infrastructure and CI/CD.",

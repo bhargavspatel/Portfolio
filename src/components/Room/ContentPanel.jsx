@@ -80,6 +80,18 @@ function AboutPanel() {
         </p>
       </div>
 
+      {/* Summary */}
+      <div style={{
+        padding: '14px 16px',
+        borderRadius: '10px',
+        background: 'rgba(99,102,241,0.07)',
+        borderLeft: '3px solid #6366f1',
+      }}>
+        <p style={{ fontSize: '12.5px', color: s.muted, lineHeight: '1.75', margin: 0 }}>
+          {aboutData.summary}
+        </p>
+      </div>
+
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
         {aboutData.bio.map((p, i) => (
           <p key={i} style={{ fontSize: '13px', color: s.muted, lineHeight: '1.7' }}>{p}</p>
