@@ -103,6 +103,18 @@ export const projectsData = [
     github: null,
     demo: null,
   },
+  {
+    title: 'Microservices Order Management',
+    description: 'Distributed order management system — separate services for orders, payments, and notifications with async messaging.',
+    bullets: [
+      'RabbitMQ async messaging eliminated direct service dependencies',
+      'Each service containerized with Docker, deployed on Kubernetes',
+      'Improved reliability and deployment consistency across environments',
+    ],
+    stack: ['Python', 'RabbitMQ', 'Docker', 'Kubernetes', 'PostgreSQL'],
+    github: null,
+    demo: null,
+  },
 ]
 
 export const contactData = {
