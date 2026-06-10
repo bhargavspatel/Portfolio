@@ -111,7 +111,7 @@ export default function RoomPortfolio() {
       root.classList.remove('light-theme')
     }
     // Also update body background for the HTML layer
-    document.body.style.background = theme === 'dark' ? '#0a0a0f' : '#c5dff0'
+    document.body.style.background = theme === 'dark' ? '#060e06' : '#c8e0c0'
   }, [theme])
 
   const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark')
