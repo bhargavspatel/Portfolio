@@ -80,6 +80,18 @@ export const experienceData = [
 
 export const projectsData = [
   {
+    title: 'ISEMS — Intelligent Student Evaluation & Mastery System',
+    description: 'Production-deployed AI-powered learning analytics platform that evaluates student performance, computes skill mastery, and generates structured AI feedback.',
+    bullets: [
+      'Skill-based weighted mastery engine with AI-generated structured recommendations via OpenAI API',
+      'JWT auth with Student / Instructor roles, analytics dashboard with charts',
+      'Deployed on Render (FastAPI backend + PostgreSQL) and Vercel (React frontend)',
+    ],
+    stack: ['FastAPI', 'React', 'PostgreSQL', 'SQLAlchemy', 'OpenAI API', 'TailwindCSS', 'Recharts'],
+    github: 'https://github.com/bhargavspatel/ISEMS',
+    demo: 'https://isems.onrender.com/docs',
+  },
+  {
     title: 'Financial Transaction Monitoring Platform',
     description: 'Real-time transaction monitoring for business users — financial record processing, validation, filtering, and live dashboards.',
     bullets: [
@@ -88,19 +100,7 @@ export const projectsData = [
       'Real-time dashboards with drill-down capabilities',
     ],
     stack: ['Django', 'PostgreSQL', 'REST APIs', 'React.js', 'Redis'],
-    github: 'https://github.com/bhargavspatel',
-    demo: null,
-  },
-  {
-    title: 'Microservices Order Management',
-    description: 'Distributed order management system — separate services for orders, payments, and notifications with async messaging.',
-    bullets: [
-      'RabbitMQ async messaging eliminated direct service dependencies',
-      'Each service containerized with Docker, deployed on Kubernetes',
-      'Improved reliability and deployment consistency across environments',
-    ],
-    stack: ['Python', 'RabbitMQ', 'Docker', 'Kubernetes', 'PostgreSQL'],
-    github: 'https://github.com/bhargavspatel',
+    github: null,
     demo: null,
   },
 ]
