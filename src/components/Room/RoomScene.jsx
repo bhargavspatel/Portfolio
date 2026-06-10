@@ -105,9 +105,9 @@ function Floor({ theme }) {
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
       <planeGeometry args={[24, 20]} />
       <meshStandardMaterial
-        color={theme === 'light' ? '#b8915a' : '#1a1208'}
-        roughness={theme === 'light' ? 0.85 : 0.6}
-        metalness={theme === 'light' ? 0.0 : 0.1}
+        color={theme === 'light' ? '#8b6340' : '#181430'}
+        roughness={theme === 'light' ? 0.8 : 0.5}
+        metalness={theme === 'light' ? 0.0 : 0.3}
       />
     </mesh>
   )
@@ -115,8 +115,8 @@ function Floor({ theme }) {
 
 // ── Room shell ──────────────────────────────────────────────────────────────
 function Walls({ theme }) {
-  const wallColor  = theme === 'light' ? '#d4dcc8' : '#0e1a0e'
-  const ceilColor  = theme === 'light' ? '#e8ede0' : '#091209'
+  const wallColor  = theme === 'light' ? '#eae4d8' : '#16122a'
+  const ceilColor  = theme === 'light' ? '#f5f2ec' : '#100d20'
   return (
     <group>
       <mesh position={[0, 3.5, -5.2]} receiveShadow>
@@ -172,52 +172,33 @@ function WindowPanel({ theme }) {
         />
       </mesh>
 
-      {/* Window glass — misty garden (day) / moonlit forest (night) */}
+      {/* Window glass */}
       <mesh ref={glowRef} position={[0.04, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
         <planeGeometry args={[1.6, 2.4]} />
         <meshStandardMaterial
-          color={isLight ? '#a8d8a0' : '#0a1a08'}
-          emissive={isLight ? '#78c878' : '#1a3a1a'}
-          emissiveIntensity={isLight ? 1.0 : 0.5}
+          color={isLight ? '#87ceeb' : '#0a0520'}
+          emissive={isLight ? '#5bb8e8' : '#2a1060'}
+          emissiveIntensity={isLight ? 1.2 : 0.6}
           roughness={0} metalness={0}
-          transparent opacity={isLight ? 0.88 : 0.92}
+          transparent opacity={isLight ? 0.9 : 0.85}
         />
       </mesh>
 
-      {/* Day: cherry blossom petals */}
-      {isLight && [
-        [0.1,  0.6],  [-0.3,  0.3], [0.2, -0.1],
-        [-0.1, -0.5], [0.3,   0.0], [-0.2, 0.7],
-      ].map(([cy, cz], i) => (
+      {/* Day: clouds */}
+      {isLight && [[-0.3, 0.5], [0.2, 0.2], [-0.1, -0.4]].map(([cy, cz], i) => (
         <mesh key={i} position={[0.06, cy, cz]} rotation={[0, Math.PI / 2, 0]}>
-          <circleGeometry args={[0.05 + (i % 3) * 0.03, 6]} />
-          <meshBasicMaterial color={i % 2 === 0 ? '#ffb7c5' : '#ff8fab'} transparent opacity={0.7} />
+          <circleGeometry args={[0.12 + i * 0.04, 8]} />
+          <meshBasicMaterial color="#ffffff" transparent opacity={0.55} />
         </mesh>
       ))}
 
-      {/* Day: bamboo stalks */}
-      {isLight && [-0.45, -0.1, 0.3].map((z, i) => (
-        <mesh key={`b${i}`} position={[0.06, 0, z]} rotation={[0, Math.PI / 2, 0]}>
-          <planeGeometry args={[0.04, 2.2]} />
-          <meshBasicMaterial color={['#5a8a3a', '#4a7a2a', '#6a9a4a'][i]} transparent opacity={0.6} />
-        </mesh>
-      ))}
-
-      {/* Night: fireflies */}
+      {/* Night: stars */}
       {!isLight && stars.map(({ id, y, z, r, o }) => (
         <mesh key={id} position={[0.06, y, z]} rotation={[0, Math.PI / 2, 0]}>
           <circleGeometry args={[r, 4]} />
-          <meshBasicMaterial color={id % 3 === 0 ? '#a0ff80' : '#80ffb0'} transparent opacity={o * 0.8} />
+          <meshBasicMaterial color="#ffffff" transparent opacity={o} />
         </mesh>
       ))}
-
-      {/* Night: moonlight glow */}
-      {!isLight && (
-        <mesh position={[0.06, 0.7, 0.1]} rotation={[0, Math.PI / 2, 0]}>
-          <circleGeometry args={[0.18, 16]} />
-          <meshBasicMaterial color="#e8f8d0" transparent opacity={0.3} />
-        </mesh>
-      )}
     </group>
   )
 }
@@ -718,37 +699,36 @@ export default function RoomScene({ theme = 'dark', activeSection, onSectionClic
 
   return (
     <>
-      {/* Bamboo Zen Garden — light: morning mist, dark: moonlit forest */}
-      <color attach="background" args={[isLight ? '#c8e0c0' : '#060e06']} />
+      <color attach="background" args={[isLight ? '#c5dff0' : '#0a0a0f']} />
 
-      {/* Ambient base */}
-      <ambientLight intensity={isLight ? 2.0 : 0.8} color={isLight ? '#e8f5e0' : '#204820'} />
+      {/* Ambient — base fill for entire room */}
+      <ambientLight intensity={isLight ? 2.2 : 1.0} color={isLight ? '#fff8f0' : '#9090c8'} />
 
-      {/* Main directional — morning sun (day) / moonlight (night) */}
-      <directionalLight position={[0, 4, 10]} intensity={isLight ? 1.8 : 1.4}
-        color={isLight ? '#f5ffe0' : '#a0c8a0'} />
-      <directionalLight position={[-4, 6, 4]} intensity={isLight ? 1.2 : 0.8}
-        color={isLight ? '#fffce8' : '#608060'} />
+      {/* Strong front directional — makes desk/walls visible from camera */}
+      <directionalLight position={[0, 4, 10]} intensity={isLight ? 2.0 : 1.8}
+        color={isLight ? '#fff5e8' : '#b0a8d8'} />
+      <directionalLight position={[0, 6, 4]} intensity={isLight ? 1.5 : 1.2}
+        color={isLight ? '#fffaf0' : '#a090c0'} />
 
-      {/* Ceiling spot — warm bamboo lantern feel */}
-      <spotLight position={[0, 6.8, -1]} angle={0.6} penumbra={0.9}
-        intensity={isLight ? 5 : 4} color={isLight ? '#f0ffe8' : '#204820'}
+      {/* Ceiling spot */}
+      <spotLight position={[0, 6.8, -1]} angle={0.6} penumbra={0.8}
+        intensity={isLight ? 6 : 5} color={isLight ? '#fff8f0' : '#d4c8f0'}
         castShadow shadow-mapSize={[512, 512]} />
 
       {/* Monitor glow */}
-      <pointLight position={[-0.5, 1.6, -2.5]} intensity={isLight ? 1.2 : 2.0} color="#38bdf8" distance={6} />
-      {/* Desk lamp — warm golden */}
-      <pointLight position={[0.9, 1.75, -3.05]} intensity={isLight ? 3 : 4.5} color="#ffd580" distance={7} />
-      {/* Window — filtered sunlight (day) / forest moonlight (night) */}
-      <pointLight position={[-6.5, 3.5, 0.8]} intensity={isLight ? 5 : 3}
-        color={isLight ? '#c8f0a0' : '#406040'} distance={16} />
-      {/* Experience board accent — jade */}
-      <pointLight position={[5.5, 2.5, -2.0]} intensity={isLight ? 1 : 2.0} color="#4ade80" distance={7} />
-      {/* Contact portal accent — soft teal */}
-      <pointLight position={[-5.5, 2.5, -0.5]} intensity={isLight ? 1 : 1.8} color="#2dd4bf" distance={7} />
-      {/* Front fill */}
-      <pointLight position={[0, 3, 9]} intensity={isLight ? 2.2 : 2.0}
-        color={isLight ? '#e0f8d0' : '#305030'} distance={18} />
+      <pointLight position={[-0.5, 1.6, -2.5]} intensity={isLight ? 1.5 : 2.5} color="#38bdf8" distance={6} />
+      {/* Desk lamp warm */}
+      <pointLight position={[0.9, 1.75, -3.05]} intensity={isLight ? 3 : 5} color="#ffb347" distance={7} />
+      {/* Window — sunlight day / moonlight night */}
+      <pointLight position={[-6.5, 3.5, 0.8]} intensity={isLight ? 6 : 4}
+        color={isLight ? '#d0eeff' : '#7c5cbf'} distance={16} />
+      {/* Experience board accent */}
+      <pointLight position={[5.5, 2.5, -2.0]} intensity={isLight ? 1 : 2.5} color="#a855f7" distance={7} />
+      {/* Contact portal accent */}
+      <pointLight position={[-5.5, 2.5, -0.5]} intensity={isLight ? 1 : 2} color="#6366f1" distance={7} />
+      {/* Front fill — illuminates room from camera direction */}
+      <pointLight position={[0, 3, 9]} intensity={isLight ? 2.5 : 2.5}
+        color={isLight ? '#fff5e0' : '#8070b8'} distance={18} />
 
       {/* Room geometry */}
       <Floor theme={theme} />
